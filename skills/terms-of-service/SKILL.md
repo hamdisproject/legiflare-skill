@@ -152,10 +152,14 @@ these tools: `get_profile`, `list_document_types`, `list_documents`, `get_docume
 - No Markdown, scripts, styles, classes, inline styles or `html`/`head`/`body` wrappers.
 - Write links as full `https://` URLs and email addresses as `mailto:` links.
 
-**If the Legiflare tools aren't available**, tell the user how to connect them: in Claude Code,
-`claude mcp add --transport http legiflare https://mcp.legiflare.com/mcp`, then sign in from `/mcp`; in Claude,
-add `https://mcp.legiflare.com/mcp` as a custom connector. Sign-in happens in the browser with their Legiflare
-account. If they'd rather not, save the document as an HTML file in their project instead. If a tool says the
+**If the Legiflare tools aren't available**, tell the user to add the Legiflare MCP server,
+`https://mcp.legiflare.com/mcp`, to their agent and sign in with their Legiflare account when the browser opens.
+In Claude Code: `claude mcp add --transport http legiflare https://mcp.legiflare.com/mcp`, then `/mcp`. In Codex:
+`codex mcp add legiflare --url https://mcp.legiflare.com/mcp`, then `codex mcp login legiflare`. In Gemini CLI:
+`gemini mcp add --transport http legiflare https://mcp.legiflare.com/mcp`. In Claude, Cursor, VS Code, Windsurf
+and other apps, add the URL in their MCP or connector settings; the steps for each are at
+https://github.com/hamdisproject/legiflare-skills#install.
+If they'd rather not, save the document as an HTML file in their project instead. If a tool says the
 sign-in has expired, ask them to reconnect.
 
 ### 6. Hand over

@@ -9,6 +9,9 @@ SDKs you use, the device permissions you ask for and the data your forms collect
 (your company name, contact email, where your users are), and writes a document that matches. When your product
 changes, it updates the same document, so the URL never changes.
 
+The skills follow the open [Agent Skills](https://agentskills.io) format, so they work in Claude Code, Codex,
+Cursor, GitHub Copilot, Gemini CLI, Windsurf and other agents that support it.
+
 ## Skills
 
 | Skill | What it does |
@@ -21,13 +24,16 @@ changes, it updates the same document, so the URL never changes.
 
 ## Install
 
-The skills use the Legiflare MCP server at `https://mcp.legiflare.com/mcp`. The first time a skill needs it, you
-sign in with your Legiflare account in the browser (email and password, or Google and GitHub); there are no API
-keys to copy.
+Setup has two parts: connect the Legiflare MCP server, which publishes the documents, and install the skills,
+which tell the agent how to write them. In Claude Code, the plugin does both at once.
+
+The MCP server is at `https://mcp.legiflare.com/mcp` (Streamable HTTP). The first time your agent connects, it
+opens your browser to sign in with your Legiflare account (email and password, or Google and GitHub); there are no
+API keys to copy.
 
 ### Claude Code
 
-Add this repository as a plugin marketplace and install the plugin. It brings the skills and the MCP server
+Add this repository as a plugin marketplace and install the plugin, which brings the skills and the MCP server
 together:
 
 ```
@@ -37,15 +43,31 @@ together:
 
 Then run `/mcp`, pick `legiflare` and sign in.
 
-### Other agents (Cursor, Codex, VS Code, ...)
+### Codex
 
-Install the skills with the [`skills`](https://skills.sh) CLI:
+Connect the MCP server and sign in:
 
 ```bash
-npx skills add hamdisproject/legiflare-skills
+codex mcp add legiflare --url https://mcp.legiflare.com/mcp
 ```
 
-and add the MCP server to your agent's configuration, for example in Cursor's `~/.cursor/mcp.json`:
+```bash
+codex mcp login legiflare
+```
+
+Or add it to `~/.codex/config.toml` yourself:
+
+```toml
+[mcp_servers.legiflare]
+url = "https://mcp.legiflare.com/mcp"
+```
+
+Then [install the skills](#installing-the-skills) for Codex.
+
+### Cursor
+
+Add the MCP server to `~/.cursor/mcp.json` (or `.cursor/mcp.json` in a project), then sign in from Cursor's MCP
+settings when it asks:
 
 ```json
 {
@@ -55,18 +77,117 @@ and add the MCP server to your agent's configuration, for example in Cursor's `~
 }
 ```
 
+Then [install the skills](#installing-the-skills) for Cursor.
+
+### GitHub Copilot in VS Code
+
+Add the MCP server from the terminal:
+
+```bash
+code --add-mcp '{"name":"legiflare","type":"http","url":"https://mcp.legiflare.com/mcp"}'
+```
+
+or in `.vscode/mcp.json` in a project:
+
+```json
+{
+  "servers": {
+    "legiflare": { "type": "http", "url": "https://mcp.legiflare.com/mcp" }
+  }
+}
+```
+
+Start the server from the file or the MCP servers list and sign in when VS Code asks. Then
+[install the skills](#installing-the-skills) for GitHub Copilot.
+
+### GitHub Copilot CLI
+
+Run `/mcp add`, name it `legiflare`, choose **HTTP**, paste `https://mcp.legiflare.com/mcp` and save with Ctrl+S. Or
+add it to `~/.copilot/mcp-config.json`:
+
+```json
+{
+  "mcpServers": {
+    "legiflare": {
+      "type": "http",
+      "url": "https://mcp.legiflare.com/mcp",
+      "tools": ["*"]
+    }
+  }
+}
+```
+
+Then [install the skills](#installing-the-skills) for GitHub Copilot. Copilot's cloud agent on GitHub.com can't use
+MCP servers that sign in with OAuth, so use these skills with Copilot in your editor or the CLI.
+
+### Gemini CLI
+
+```bash
+gemini mcp add --transport http legiflare https://mcp.legiflare.com/mcp
+```
+
+Gemini CLI opens the browser to sign in on first use; `/mcp auth legiflare` signs in again. Then
+[install the skills](#installing-the-skills) for Gemini CLI.
+
+### Windsurf
+
+Add the MCP server to `~/.codeium/windsurf/mcp_config.json`. Windsurf uses `serverUrl`, not `url`:
+
+```json
+{
+  "mcpServers": {
+    "legiflare": { "serverUrl": "https://mcp.legiflare.com/mcp" }
+  }
+}
+```
+
+Then [install the skills](#installing-the-skills) for Windsurf.
+
 ### Claude (web and desktop)
 
 Add `https://mcp.legiflare.com/mcp` as a custom connector (Settings → Connectors → Add custom connector), then zip
 the skill folders you want from `skills/` and upload them under Settings → Capabilities → Skills.
 
-### By hand
+### Other agents
 
-Copy the folders in `skills/` to your agent's skills directory (for Claude Code, `~/.claude/skills/` or a
-project's `.claude/skills/`) and add the MCP server:
+Any agent that supports remote MCP servers with OAuth sign-in can use `https://mcp.legiflare.com/mcp`, and any
+agent that supports Agent Skills can use the skills below.
+
+## Installing the skills
+
+**With a command.** Either of these asks which agents to install for, or takes them as flags:
 
 ```bash
-claude mcp add --transport http legiflare https://mcp.legiflare.com/mcp
+npx skills add hamdisproject/legiflare-skills
+```
+
+```bash
+gh skill install hamdisproject/legiflare-skills --agent codex --scope user
+```
+
+`gh skill` needs GitHub CLI 2.90 or later; its `--agent` values include `claude-code`, `codex`, `cursor`,
+`github-copilot` and `gemini-cli`, and `--scope` is `project` (the current repository) or `user` (every project).
+
+**By hand.** Copy the folders in `skills/` to the folder your agent reads skills from:
+
+| Agent | In a project | For every project |
+| --- | --- | --- |
+| Claude Code | `.claude/skills/` | `~/.claude/skills/` |
+| Codex | `.agents/skills/` | `~/.agents/skills/` |
+| Cursor | `.agents/skills/` or `.cursor/skills/` | `~/.agents/skills/` or `~/.cursor/skills/` |
+| GitHub Copilot (VS Code, CLI) | `.github/skills/` or `.agents/skills/` | `~/.copilot/skills/` or `~/.agents/skills/` |
+| Gemini CLI | `.gemini/skills/` or `.agents/skills/` | `~/.gemini/skills/` |
+| Windsurf | `.windsurf/skills/` | `~/.codeium/windsurf/skills/` |
+
+`.agents/skills/` is shared: Codex, Cursor, GitHub Copilot and Gemini CLI all read it, so one copy there covers
+them. For example, for every project:
+
+```bash
+git clone https://github.com/hamdisproject/legiflare-skills.git
+```
+
+```bash
+mkdir -p ~/.agents/skills && cp -R legiflare-skills/skills/* ~/.agents/skills/
 ```
 
 ## Try it
