@@ -1,0 +1,46 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "legiflare",
+  "version": "1.0.0",
+  "description": "Write privacy policies, terms of service, cookie and refund policies from what your product actually does, and publish them on Legiflare at a public URL.",
+  "author": {
+    "name": "Legiflare",
+    "url": "https://legiflare.com"
+  },
+  "homepage": "https://legiflare.com",
+  "repository": "https://github.com/hamdisproject/legiflare-skill",
+  "license": "MIT",
+  "keywords": [
+    "legiflare",
+    "privacy policy",
+    "terms of service",
+    "cookie policy",
+    "refund policy",
+    "gdpr",
+    "ccpa",
+    "kvkk",
+    "app store"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Legiflare",
+        "shortDescription": "Legal documents written from your code, published at a public URL",
+        "longDescription": "Reads your code to find the analytics, ads, payment, sign-in and AI services you use, writes a privacy policy, terms of service, cookie or refund policy that matches, and publishes it on Legiflare. Updates keep the same URL.",
+        "developerName": "Legiflare",
+        "category": "Productivity",
+        "capabilities": ["Read", "Write"],
+        "websiteURL": "https://legiflare.com",
+        "privacyPolicyURL": "https://legiflare.com/terms/privacy-policy",
+        "termsOfServiceURL": "https://legiflare.com/terms/terms-of-service",
+        "defaultPrompt": [
+          "Write a privacy policy for this app and publish it on Legiflare.",
+          "Are my legal documents still up to date with this code?"
+        ],
+        "brandColor": "#CF470B",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/icon.png"
+      }
+    }
+  }
+}

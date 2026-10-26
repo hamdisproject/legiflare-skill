@@ -164,7 +164,7 @@ In Claude Code: `claude mcp add --transport http legiflare https://mcp.legiflare
 `codex mcp add legiflare --url https://mcp.legiflare.com/mcp`, then `codex mcp login legiflare`. In Gemini CLI:
 `gemini mcp add --transport http legiflare https://mcp.legiflare.com/mcp`. In Claude, Cursor, VS Code, Windsurf
 and other apps, add the URL in their MCP or connector settings; the steps for each are at
-https://github.com/hamdisproject/legiflare-skills#install.
+https://github.com/hamdisproject/legiflare-skill#install.
 If they'd rather not, save the document as an HTML file in their project instead. If a tool says the
 sign-in has expired, ask them to reconnect.
 

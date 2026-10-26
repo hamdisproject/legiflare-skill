@@ -1,0 +1,20 @@
+{
+  "name": "legiflare",
+  "interface": {
+    "displayName": "Legiflare"
+  },
+  "plugins": [
+    {
+      "name": "legiflare",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

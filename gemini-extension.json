@@ -1,0 +1,10 @@
+{
+  "name": "legiflare",
+  "version": "1.0.0",
+  "description": "Write privacy policies, terms of service, cookie and refund policies from what your product actually does, and publish them on Legiflare at a public URL.",
+  "mcpServers": {
+    "legiflare": {
+      "httpUrl": "https://mcp.legiflare.com/mcp"
+    }
+  }
+}
