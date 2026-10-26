@@ -1,0 +1,25 @@
+{
+  "name": "legiflare",
+  "version": "1.0.0",
+  "description": "Write privacy policies, terms of service, cookie and refund policies from what your product actually does, and publish them on Legiflare at a public URL.",
+  "author": {
+    "name": "Legiflare",
+    "url": "https://legiflare.com"
+  },
+  "homepage": "https://legiflare.com",
+  "icon": "assets/icon.png",
+  "privacyPolicyUrl": "https://legiflare.com/terms/privacy-policy",
+  "repository": "https://github.com/hamdisproject/legiflare-skills",
+  "license": "MIT",
+  "keywords": [
+    "legiflare",
+    "privacy policy",
+    "terms of service",
+    "cookie policy",
+    "refund policy",
+    "gdpr",
+    "ccpa",
+    "kvkk",
+    "app store"
+  ]
+}

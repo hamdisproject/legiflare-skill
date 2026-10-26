@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "legiflare": {
+      "type": "http",
+      "url": "https://mcp.legiflare.com/mcp"
+    }
+  }
+}
