@@ -129,20 +129,22 @@ tools: `get_profile`, `list_document_types`, `list_documents`, `get_document`, `
      Play expects the page to be labelled as a privacy policy.
    - `documentTypeId`: from step 2.
    - `description`: one plain sentence for listings (up to 255 characters).
-   - `content`: the HTML described below.
+   - `content`: the Markdown described below.
    - `visible`: `true` to publish. Use `false` while placeholders remain or the user wants to read it first; a
      hidden document's page shows nothing until it is made visible.
 4. Give the user the `url` from the result.
 
 `update_document` changes only the fields you send, so send the complete new `content`, not a fragment.
 
-**Content format.** The page renders `content` as HTML below the document title:
+**Content format.** `content` is Markdown (CommonMark with GitHub tables), shown below the document title:
 
-- Use only `h2`, `h3`, `h4`, `p`, `ul`, `ol`, `li`, `strong`, `em`, `u`, `blockquote`, `table`, `thead`, `tbody`,
-  `tr`, `th`, `td`, `a` and `br`.
-- Start with `h2` sections. The page already shows the title as its heading, so an `h1` would repeat it.
-- No Markdown, scripts, styles, classes, inline styles or `html`/`head`/`body` wrappers.
-- Write links as full `https://` URLs and email addresses as `mailto:` links.
+- Start with `##` sections and `###` subsections. The page already shows the title as its heading, so a `#`
+  heading would repeat it.
+- Use paragraphs, `-` and `1.` lists, `**bold**`, `*italic*`, `>` quotes, tables with a header row and a
+  `| --- |` row, and links as `[text](https://...)`. Web and email addresses written out become links.
+- Keep each paragraph on one line: a single line break shows as a line break (for an address), and a blank line
+  starts a new paragraph.
+- Markdown only: no HTML tags, images, or code fence around the document.
 
 **If the Legiflare tools aren't available**, tell the user to add the Legiflare MCP server,
 `https://mcp.legiflare.com/mcp`, to their agent and sign in with their Legiflare account when the browser opens.
@@ -151,7 +153,7 @@ In Claude Code: `claude mcp add --transport http legiflare https://mcp.legiflare
 `gemini mcp add --transport http legiflare https://mcp.legiflare.com/mcp`. In Claude, Cursor, VS Code, Windsurf
 and other apps, add the URL in their MCP or connector settings; the steps for each are at
 https://github.com/hamdisproject/legiflare-skill#install.
-If they'd rather not, save the document as an HTML file in their project instead. If a tool says the
+If they'd rather not, save the document as a Markdown file in their project instead. If a tool says the
 sign-in has expired, ask them to reconnect.
 
 ### 7. Hand over

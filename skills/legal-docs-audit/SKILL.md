@@ -57,9 +57,10 @@ For each document, look for:
   doesn't exist.
 - **Store and legal gaps**: no account deletion section in an app's privacy policy, no "Last updated" date, a
   privacy policy title Google Play wouldn't recognise as one, missing items for a region the product serves.
-- **Legiflare issues**: content still holding placeholders ("[Company Name]") or sample text, Markdown that won't
-  render (the page renders HTML), an `h1` that repeats the page title, an empty description, a document hidden
-  (`visible: false`) that the product links to, or two documents of the same type for one product.
+- **Legiflare issues**: content still holding placeholders ("[Company Name]") or sample text, Markdown that
+  renders wrong (a table without its `| --- |` row, HTML tags, a paragraph broken over several lines), a `#`
+  heading that repeats the page title, an empty description, a document hidden (`visible: false`) that the
+  product links to, or two documents of the same type for one product.
 
 Give evidence for each finding: the file and line, the dependency, or a short quote from the document.
 
@@ -83,13 +84,15 @@ what you checked.
   to it. To take one offline, set `visible: false`.
 - Read each changed document back with `get_document` to confirm the change landed.
 
-**Content format.** The public page renders `content` as HTML below the document title:
+**Content format.** `content` is Markdown (CommonMark with GitHub tables), shown below the document title:
 
-- Use only `h2`, `h3`, `h4`, `p`, `ul`, `ol`, `li`, `strong`, `em`, `u`, `blockquote`, `table`, `thead`, `tbody`,
-  `tr`, `th`, `td`, `a` and `br`.
-- Start with `h2` sections. The page already shows the title as its heading, so an `h1` would repeat it.
-- No Markdown, scripts, styles, classes, inline styles or `html`/`head`/`body` wrappers.
-- Write links as full `https://` URLs and email addresses as `mailto:` links.
+- Start with `##` sections and `###` subsections. The page already shows the title as its heading, so a `#`
+  heading would repeat it.
+- Use paragraphs, `-` and `1.` lists, `**bold**`, `*italic*`, `>` quotes, tables with a header row and a
+  `| --- |` row, and links as `[text](https://...)`. Web and email addresses written out become links.
+- Keep each paragraph on one line: a single line break shows as a line break (for an address), and a blank line
+  starts a new paragraph.
+- Markdown only: no HTML tags, images, or code fence around the document.
 
 **If the Legiflare tools aren't available**, tell the user to add the Legiflare MCP server,
 `https://mcp.legiflare.com/mcp`, to their agent and sign in with their Legiflare account when the browser opens.

@@ -180,8 +180,8 @@ The agent tells you what it found, asks a few questions, publishes the document 
 | `get_profile` | The signed-in user's name, company and email |
 | `list_document_types` | Document types (Privacy Policy, Terms of Service, Cookie Policy, Refund Policy, Other) and their IDs |
 | `list_documents` | Your documents, without their content |
-| `get_document` | One document with its content |
-| `create_document` | Create a document and get its public URL |
+| `get_document` | One document with its content, in Markdown |
+| `create_document` | Create a document from Markdown and get its public URL |
 | `update_document` | Change a document; the URL stays the same |
 | `delete_document` | Delete a document (the skills never do this unless you ask) |
 
