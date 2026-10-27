@@ -199,7 +199,7 @@ only the finished document is sent to Legiflare. The server's source is at
 | `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, `.mcp.json` | Claude Code |
 | `.cursor-plugin/plugin.json`, `.cursor-plugin/marketplace.json` | Cursor |
 | `gemini-extension.json` | Gemini CLI |
-| `assets/icon.png` | Plugin listings |
+| `assets/` | Plugin listings: the icon |
 
 When you change the version, change it in `plugin.json`, `.claude-plugin/plugin.json`, `.cursor-plugin/plugin.json`
 and `gemini-extension.json` together; the MCP server address appears in `mcp.json`, `.mcp.json`,
